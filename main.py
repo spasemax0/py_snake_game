@@ -1,7 +1,7 @@
 import time
 import turtle
 import random
-#Author: spasemax0
+#author: insertuserIDhere
 #description: simple snake game in python with score tracking
 #in order to customize background simply drag any .gif image file into the snake game folder, copy path, and paste path in required section
 
@@ -98,3 +98,49 @@ class Snake:
 
 
 # Create the food
+def create_food():
+    food = turtle.Turtle()
+    food.shape("circle")
+    food.color("red")
+    food.penup()
+    food.goto(random.randint(-280, 280), random.randint(-280, 280))
+    return food
+
+
+snake = Snake()
+food = create_food()
+
+while True:
+    wn.update()
+
+    # Move the snake
+    snake.move()
+
+    # Set up the keyboard bindings
+    wn.onkeypress(snake.go_up, "Up")
+    wn.onkeypress(snake.go_down, "Down")
+    wn.onkeypress(snake.go_left, "Left")
+    wn.onkeypress(snake.go_right, "Right")
+    wn.listen()
+
+    # Check for collision with food
+    if snake.head.distance(food) < 20:
+        # Move the food to a random position
+        food.goto(random.randint(-280, 280), random.randint(-280, 280))
+
+        # Add a segment to the snake
+        new_segment = turtle.Turtle()
+        new_segment.speed(0)
+        new_segment.shape("square")
+        new_segment.color("grey")
+        new_segment.penup()
+        snake.add_segment(new_segment)
+
+        # Update the score
+        snake.update_score()
+
+    # Check for collision with the border
+    if snake.head.xcor() > 420 or snake.head.xcor() < -420 or snake.head.ycor() > 320 or snake.head.ycor() < -320:
+        time.sleep(1)
+        snake.reset()
+        scoreboard.reset()
