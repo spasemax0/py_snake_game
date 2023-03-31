@@ -1,7 +1,7 @@
 import time
 import turtle
 import random
-#author: insertuserIDhere
+#author: spasemax0
 #description: simple snake game in python with score tracking
 #in order to customize background simply drag any .gif image file into the snake game folder, copy path, and paste path in required section
 
